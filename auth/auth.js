@@ -93,40 +93,22 @@ async function login() {
 
     const data = await res.json();
 
-    console.log(data);
+    alert(JSON.stringify(data));
 
     if (!res.ok) {
-      alert(data.message || "Login failed");
-      return;
-    }
-
-    if (!data.token) {
-      alert("Token not found");
       return;
     }
 
     localStorage.setItem("token", data.token);
 
-    const user = data.user || {};
-
     localStorage.setItem(
       "user",
-      JSON.stringify({
-        userName:
-          user.userName ||
-          `${user.firstName || ""} ${user.lastName || ""}`.trim() ||
-          "User",
-
-        profileImage:
-          user.profileImage ||
-          "https://cdn-icons-png.flaticon.com/512/149/149071.png",
-      })
+      JSON.stringify(data.user)
     );
 
     location.href =
       "https://red-phantom-main-mu.vercel.app/main.html";
   } catch (err) {
-    console.log(err);
-    alert("Server Error");
+    alert(err.message);
   }
 }
