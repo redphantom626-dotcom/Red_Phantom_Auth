@@ -77,49 +77,46 @@ async function verifyEmail() {
 }
 
 async function login() {
-  try {
-    const res = await fetch(API + "/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: email.value,
-        password: password.value,
-      }),
-    });
+  const res = await fetch(API + "/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: email.value,
+      password: password.value,
+    }),
+  });
 
-    const data = await res.json();
+  const data = await res.json();
 
-    if (!res.ok) {
-      alert(data.message || "Login failed");
-      return;
-    }
-
-    if (!data.token) {
-      alert("Token not found");
-      return;
-    }
-
-    localStorage.setItem("token", data.token);
-
-    const userName =
-      data.user?.userName ||
-      `${data.user?.firstName || ""} ${data.user?.lastName || ""}`.trim() ||
-      "User";
-
-    localStorage.setItem(
-      "user",
-      JSON.stringify({
-        userName,
-        profileImage:
-          data.user?.profileImage ||
-          "https://cdn-icons-png.flaticon.com/512/149/149071.png",
-      })
-    );
-
-    location.href = "https://red-phantom-main-mu.vercel.app/";
-  } catch (err) {
-    alert("Server error");
+  if (!res.ok) {
+    alert(data.message || "Login failed");
+    return;
   }
+
+  if (!data.token) {
+    alert("Token not found");
+    return;
+  }
+
+  localStorage.setItem("token", data.token);
+
+  const userName =
+    data.user?.userName ||
+    `${data.user?.firstName || ""} ${data.user?.lastName || ""}`.trim() ||
+    "User";
+
+  localStorage.setItem(
+    "user",
+    JSON.stringify({
+      userName,
+      profileImage:
+        data.user?.profileImage ||
+        "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+    })
+  );
+
+  location.href = "https://red-phantom-main-mu.vercel.app/";
+}
 }
