@@ -93,9 +93,8 @@ async function login() {
 
     const data = await res.json();
 
-    alert(JSON.stringify(data));
-
     if (!res.ok) {
+      alert(data.message || "Login failed");
       return;
     }
 
@@ -103,12 +102,17 @@ async function login() {
 
     localStorage.setItem(
       "user",
-      JSON.stringify(data.user)
+      JSON.stringify({
+        userName:
+          `${data.user.firstName} ${data.user.lastName}`.trim(),
+        profileImage:
+          "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+      })
     );
 
-    location.href =
+    window.location.href =
       "https://red-phantom-main-mu.vercel.app/main.html";
   } catch (err) {
-    alert(err.message);
+    alert("Server error");
   }
 }
