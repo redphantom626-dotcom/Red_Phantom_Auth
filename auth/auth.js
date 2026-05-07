@@ -82,19 +82,19 @@ async function login() {
     const res = await fetch(API + "/login", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json"
       },
       credentials: "include",
       body: JSON.stringify({
         email: email.value,
-        password: password.value,
-      }),
+        password: password.value
+      })
     });
 
     const data = await res.json();
 
     if (!res.ok) {
-      alert(data.message || "Login failed");
+      alert(data.message);
       return;
     }
 
@@ -102,13 +102,11 @@ async function login() {
       "user",
       JSON.stringify({
         userName: `${data.user.firstName} ${data.user.lastName}`.trim(),
-        profileImage:
-          "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+        profileImage: "https://cdn-icons-png.flaticon.com/512/149/149071.png"
       })
     );
 
-    window.location.href =
-      "https://red-phantom-main-mu.vercel.app/main.html";
+    location.href = "https://red-phantom-main-mu.vercel.app/main.html";
   } catch (err) {
     alert("Server error");
   }
