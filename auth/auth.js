@@ -1,4 +1,4 @@
-const API = "https://red-phantom-auth-back-delta.vercel.app/api/auth";
+const API = "https://red-phantom-auth-back-delta.vercel.app/api/user";
 
 async function signup() {
   if (password.value.length < 8) {
