@@ -1,4 +1,5 @@
 const API = "https://red-phantom-auth-back-delta.vercel.app/api/users";
+
 async function signup() {
   if (password.value.length < 8) {
     alert("Password must be at least 8 characters long!");
@@ -70,54 +71,52 @@ async function verifyEmail() {
 
     localStorage.removeItem("email");
 
-    location.href = "login.html";
+    location.href =
+      "https://red-phantom-auth-one.vercel.app/auth/login.html";
   } catch (err) {
     alert("Server error");
   }
 }
 
 async function login() {
-  const res = await fetch(API + "/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      email: email.value,
-      password: password.value,
-    }),
-  });
+  try {
+    const res = await fetch(API + "/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: email.value,
+        password: password.value,
+      }),
+    });
 
-  const data = await res.json();
+    const data = await res.json();
 
-  if (!res.ok) {
-    alert(data.message || "Login failed");
-    return;
+    if (!res.ok) {
+      alert(data.message || "Login failed");
+      return;
+    }
+
+    if (!data.token) {
+      alert("Token not found");
+      return;
+    }
+
+    const user = data.user || {};
+
+    const userName =
+      user.userName ||
+      `${user.firstName || ""} ${user.lastName || ""}`.trim() ||
+      "User";
+
+    const profileImage =
+      user.profileImage ||
+      "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+
+    window.location.href =
+      `https://red-phantom-main-mu.vercel.app/main.html?token=${data.token}&userName=${encodeURIComponent(userName)}&profileImage=${encodeURIComponent(profileImage)}`;
+  } catch (err) {
+    alert("Server error");
   }
-
-  if (!data.token) {
-    alert("Token not found");
-    return;
-  }
-
-  localStorage.setItem("token", data.token);
-
-  const user = data.user || {};
-
-  const userName =
-    user.userName ||
-    `${user.firstName || ""} ${user.lastName || ""}`.trim() ||
-    "User";
-
-  localStorage.setItem(
-    "user",
-    JSON.stringify({
-      userName,
-      profileImage:
-        user.profileImage ||
-        "https://cdn-icons-png.flaticon.com/512/149/149071.png",
-    })
-  );
-
-  location.href = "https://red-phantom-main-mu.vercel.app/main.html";
 }
