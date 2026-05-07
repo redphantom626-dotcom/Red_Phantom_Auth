@@ -1,4 +1,4 @@
-const API = "https://red-phantom-auth-back-delta.vercel.app/api/users";
+const API = "https://red-phantom-auth-back-delta.vercel.app/api/auth";
 
 async function signup() {
   if (password.value.length < 8) {
@@ -92,8 +92,6 @@ async function login() {
 
     const data = await res.json();
 
-    console.log(data);
-
     if (!res.ok) {
       alert(data.message || "Login failed");
       return;
@@ -106,18 +104,15 @@ async function login() {
 
     localStorage.setItem("token", data.token);
 
-    let userName = "User";
-
-    if (data.user && data.user.userName) {
-      userName = data.user.userName;
-    } else if (data.user && data.user.firstName) {
-      userName = data.user.firstName + " " + data.user.lastName;
-    }
+    const userName =
+      data.user?.userName ||
+      `${data.user?.firstName || ""} ${data.user?.lastName || ""}`.trim() ||
+      "User";
 
     localStorage.setItem(
       "user",
       JSON.stringify({
-        userName: userName,
+        userName,
         profileImage:
           data.user?.profileImage ||
           "https://cdn-icons-png.flaticon.com/512/149/149071.png",
@@ -126,7 +121,6 @@ async function login() {
 
     location.href = "https://red-phantom-main-mu.vercel.app/";
   } catch (err) {
-    console.log(err);
     alert("Server error");
   }
 }
