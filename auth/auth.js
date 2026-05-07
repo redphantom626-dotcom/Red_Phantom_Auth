@@ -1,4 +1,3 @@
-```js
 const API = "https://red-phantom-auth-back-delta.vercel.app/api/users";
 
 async function signup() {
@@ -125,4 +124,3 @@ async function login() {
     alert("Server error");
   }
 }
-```
