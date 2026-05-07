@@ -1,3 +1,4 @@
+```js
 const API = "https://red-phantom-auth-back-delta.vercel.app/api/users";
 
 async function signup() {
@@ -26,7 +27,9 @@ async function signup() {
   try {
     const res = await fetch(`${API}/signup`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(data),
     });
 
@@ -38,6 +41,7 @@ async function signup() {
     }
 
     localStorage.setItem("email", data.email);
+
     location.href = "verify-email.html";
   } catch (err) {
     alert("Server error");
@@ -50,7 +54,9 @@ async function verifyEmail() {
   try {
     const res = await fetch(`${API}/verify-email`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         email: emailStored,
         otp: otp.value,
@@ -65,6 +71,7 @@ async function verifyEmail() {
     }
 
     localStorage.removeItem("email");
+
     location.href = "login.html";
   } catch (err) {
     alert("Server error");
@@ -75,7 +82,9 @@ async function login() {
   try {
     const res = await fetch(`${API}/login`, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         email: email.value,
         password: password.value,
@@ -84,14 +93,36 @@ async function login() {
 
     const data = await res.json();
 
+    console.log(data);
+
     if (!res.ok) {
       alert(data.message || "Login failed");
       return;
     }
 
+    if (!data.token) {
+      alert("Token not found");
+      return;
+    }
+
     localStorage.setItem("token", data.token);
+
+    localStorage.setItem(
+      "user",
+      JSON.stringify({
+        userName:
+          data.user?.userName ||
+          `${data.user?.firstName || ""} ${data.user?.lastName || ""}`,
+        profileImage:
+          data.user?.profileImage ||
+          "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+      }),
+    );
+
     location.href = "https://red-phantom-main-mu.vercel.app/";
   } catch (err) {
+    console.log(err);
     alert("Server error");
   }
 }
+```
