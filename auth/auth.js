@@ -102,9 +102,11 @@ async function login() {
 
   localStorage.setItem("token", data.token);
 
+  const user = data.user || {};
+
   const userName =
-    data.user?.userName ||
-    `${data.user?.firstName || ""} ${data.user?.lastName || ""}`.trim() ||
+    user.userName ||
+    `${user.firstName || ""} ${user.lastName || ""}`.trim() ||
     "User";
 
   localStorage.setItem(
@@ -112,10 +114,10 @@ async function login() {
     JSON.stringify({
       userName,
       profileImage:
-        data.user?.profileImage ||
+        user.profileImage ||
         "https://cdn-icons-png.flaticon.com/512/149/149071.png",
     })
   );
 
-  location.href = "https://red-phantom-main-mu.vercel.app/";
+  location.href = "https://red-phantom-main-mu.vercel.app/main.html";
 }
