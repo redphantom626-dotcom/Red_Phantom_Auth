@@ -24,7 +24,7 @@ async function signup() {
   };
 
   try {
-    const res = await fetch(`${API}/signup`, {
+    const res = await fetch(API + "/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -51,7 +51,7 @@ async function verifyEmail() {
   const emailStored = localStorage.getItem("email");
 
   try {
-    const res = await fetch(`${API}/verify-email`, {
+    const res = await fetch(API + "/verify-email", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -79,7 +79,7 @@ async function verifyEmail() {
 
 async function login() {
   try {
-    const res = await fetch(`${API}/login`, {
+    const res = await fetch(API + "/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -106,16 +106,22 @@ async function login() {
 
     localStorage.setItem("token", data.token);
 
+    let userName = "User";
+
+    if (data.user && data.user.userName) {
+      userName = data.user.userName;
+    } else if (data.user && data.user.firstName) {
+      userName = data.user.firstName + " " + data.user.lastName;
+    }
+
     localStorage.setItem(
       "user",
       JSON.stringify({
-        userName:
-          data.user?.userName ||
-          `${data.user?.firstName || ""} ${data.user?.lastName || ""}`,
+        userName: userName,
         profileImage:
           data.user?.profileImage ||
           "https://cdn-icons-png.flaticon.com/512/149/149071.png",
-      }),
+      })
     );
 
     location.href = "https://red-phantom-main-mu.vercel.app/";
