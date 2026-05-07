@@ -71,8 +71,7 @@ async function verifyEmail() {
 
     localStorage.removeItem("email");
 
-    location.href =
-      "https://red-phantom-auth-one.vercel.app/auth/login.html";
+    location.href = "https://red-phantom-auth-one.vercel.app/auth/login.html";
   } catch (err) {
     alert("Server error");
   }
@@ -85,6 +84,7 @@ async function login() {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify({
         email: email.value,
         password: password.value,
@@ -98,13 +98,10 @@ async function login() {
       return;
     }
 
-    localStorage.setItem("token", data.token);
-
     localStorage.setItem(
       "user",
       JSON.stringify({
-        userName:
-          `${data.user.firstName} ${data.user.lastName}`.trim(),
+        userName: `${data.user.firstName} ${data.user.lastName}`.trim(),
         profileImage:
           "https://cdn-icons-png.flaticon.com/512/149/149071.png",
       })
