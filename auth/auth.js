@@ -90,7 +90,7 @@ async function login() {
     }
 
     localStorage.setItem("token", data.token);
-    location.href = "../../../main page/index.html";
+    location.href = "https://red-phantom-main-mu.vercel.app/";
   } catch (err) {
     alert("Server error");
   }
