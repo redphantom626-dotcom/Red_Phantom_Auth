@@ -93,6 +93,8 @@ async function login() {
 
     const data = await res.json();
 
+    console.log(data);
+
     if (!res.ok) {
       alert(data.message || "Login failed");
       return;
@@ -103,9 +105,7 @@ async function login() {
       return;
     }
 
-    localStorage.clear();
-
-    localStorage.setItem("token", String(data.token));
+    localStorage.setItem("token", data.token);
 
     const user = data.user || {};
 
@@ -123,11 +123,10 @@ async function login() {
       })
     );
 
-    console.log(localStorage.getItem("token"));
-
-    window.location.href =
+    location.href =
       "https://red-phantom-main-mu.vercel.app/main.html";
   } catch (err) {
+    console.log(err);
     alert("Server Error");
   }
 }
