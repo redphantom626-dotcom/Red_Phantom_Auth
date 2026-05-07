@@ -119,4 +119,3 @@ async function login() {
 
   location.href = "https://red-phantom-main-mu.vercel.app/";
 }
-}
