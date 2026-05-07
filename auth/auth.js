@@ -103,20 +103,31 @@ async function login() {
       return;
     }
 
+    localStorage.clear();
+
+    localStorage.setItem("token", String(data.token));
+
     const user = data.user || {};
 
-    const userName =
-      user.userName ||
-      `${user.firstName || ""} ${user.lastName || ""}`.trim() ||
-      "User";
+    localStorage.setItem(
+      "user",
+      JSON.stringify({
+        userName:
+          user.userName ||
+          `${user.firstName || ""} ${user.lastName || ""}`.trim() ||
+          "User",
 
-    const profileImage =
-      user.profileImage ||
-      "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+        profileImage:
+          user.profileImage ||
+          "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+      })
+    );
+
+    console.log(localStorage.getItem("token"));
 
     window.location.href =
-      `https://red-phantom-main-mu.vercel.app/main.html?token=${data.token}&userName=${encodeURIComponent(userName)}&profileImage=${encodeURIComponent(profileImage)}`;
+      "https://red-phantom-main-mu.vercel.app/main.html";
   } catch (err) {
-    alert("Server error");
+    alert("Server Error");
   }
 }
