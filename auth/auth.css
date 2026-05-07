@@ -1,0 +1,110 @@
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #070b17;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg-grid {
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(#ffffff08 1px, transparent 1px),
+    linear-gradient(90deg, #ffffff08 1px, transparent 1px);
+  background-size: 45px 45px;
+  z-index: 0;
+}
+
+.auth-container {
+  z-index: 2;
+  width: 420px;
+  background: #0c1225;
+  padding: 35px;
+  border-radius: 14px;
+  box-shadow: 0 0 30px #ff003c40;
+  animation: fadeIn 1s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.logo {
+  width: 90px;
+  display: block;
+  margin: 0 auto 20px;
+}
+
+h2 {
+  text-align: center;
+  color: #ff003c;
+  margin-bottom: 25px;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 14px;
+  border-radius: 6px;
+  border: none;
+  background: #131a33;
+  color: #fff;
+  font-size: 1rem;
+}
+
+input::placeholder {
+  color: #aaa;
+}
+
+button {
+  width: 100%;
+  padding: 13px;
+  background: #ff003c;
+  border: none;
+  border-radius: 7px;
+  font-size: 1.1rem;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #cc002f;
+  box-shadow: 0 0 15px #ff003c80;
+}
+
+.link {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.link a {
+  color: #ff003c;
+  text-decoration: none;
+}
+
+.radio-group {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.radio-group label {
+  font-size: 0.9rem;
+}

@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Signup | Red Phantom</title>
+    <link rel="stylesheet" href="auth.css" />
+    <link rel="icon" href="./assets/images/Red Phantom.png" />
+  </head>
+  <body>
+    <div class="bg-grid"></div>
+
+    <div class="auth-container">
+      <img src="./assets/images/Red Phantom.png" class="logo" />
+      <h2>Create Account</h2>
+
+      <input id="firstName" placeholder="First Name" />
+      <input id="lastName" placeholder="Last Name" />
+      <input id="email" placeholder="Email" />
+      <input id="password" type="password" placeholder="Password" />
+      <input
+        id="confirmPassword"
+        type="password"
+        placeholder="Confirm Your Password"
+      />
+      <input id="age" type="number" placeholder="Age (18+)" />
+      <input id="phone" placeholder="Phone" />
+
+      <select id="role">
+        <option value="USER">User</option>
+        <option value="ADMIN">Admin</option>
+      </select>
+
+      <div class="radio-group">
+        <label
+          ><input type="radio" name="gender" value="MALE" checked /> Male</label
+        >
+        <label
+          ><input type="radio" name="gender" value="FEMALE" /> Female</label
+        >
+      </div>
+
+      <button onclick="signup()">Sign Up</button>
+
+      <div class="link">
+        <a href="login.html">Already have an account?</a>
+      </div>
+    </div>
+
+    <script src="auth.js"></script>
+  </body>
+</html>

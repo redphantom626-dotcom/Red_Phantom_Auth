@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Red Phantom</title>
+    <link rel="icon" href="./auth/assets/images/Red Phantom.png" />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", sans-serif;
+        background: #070b17;
+        color: #e2e2e2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+        position: relative;
+      }
+      .alert-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #ff003c;
+        color: #ffffff;
+        text-align: center;
+        padding: 12px 0;
+        font-size: 1.2rem;
+        z-index: 10;
+        font-weight: bold;
+      }
+      .bg-grid {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-image:
+          linear-gradient(#ffffff08 1px, transparent 1px),
+          linear-gradient(90deg, #ffffff08 1px, transparent 1px);
+        background-size: 45px 45px;
+        animation: moveBg 22s linear infinite;
+        z-index: 0;
+      }
+      @keyframes moveBg {
+        from {
+          transform: translateY(0);
+        }
+        to {
+          transform: translateY(45px);
+        }
+      }
+      .container {
+        text-align: center;
+        z-index: 5;
+        animation: fadeIn 1.8s ease;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .logo {
+        width: 130px;
+        height: 130px;
+        object-fit: contain;
+        margin-bottom: 20px;
+        animation: pulse 2.5s infinite;
+        border-radius: 50%;
+      }
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+          box-shadow: 0 0 10px #ff003c60;
+        }
+        50% {
+          transform: scale(1.08);
+          box-shadow: 0 0 20px #ff003c;
+        }
+        100% {
+          transform: scale(1);
+          box-shadow: 0 0 10px #ff003c60;
+        }
+      }
+      #typewriter {
+        font-size: 3.7rem;
+        margin-bottom: 10px;
+        color: #ff003c;
+        letter-spacing: 3px;
+        text-shadow: 0 0 20px #ff003c;
+        white-space: nowrap;
+        border-right: 3px solid #ff003c;
+        overflow: hidden;
+        animation: blinkCursor 0.7s infinite;
+      }
+      @keyframes blinkCursor {
+        0% {
+          border-color: transparent;
+        }
+        50% {
+          border-color: #ff003c;
+        }
+        100% {
+          border-color: transparent;
+        }
+      }
+      p {
+        font-size: 1.2rem;
+        opacity: 0.8;
+        margin-bottom: 40px;
+      }
+      .enter-btn {
+        padding: 14px 35px;
+        background: #ff003c;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.3rem;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      .enter-btn:hover {
+        background: #cc002f;
+        transform: scale(1.08);
+        box-shadow: 0 0 18px #ff003c70;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="alert-bar">Red Phantom - A complete cybersecurity platform</div>
+
+    <div class="bg-grid"></div>
+    <div class="bg-overlay"></div>
+
+    <div class="container">
+      <img src="./auth/assets/images/Red Phantom.png" class="logo" alt="Red Phantom Logo" />
+      <h1 id="typewriter"></h1>
+      <p>Cyber Intelligence Platform</p>
+      <button class="enter-btn" onclick="location.href = './auth/login.html'">
+        Try Red Phantom
+      </button>
+    </div>
+
+    <script>
+      const text = "Red Phantom";
+      let index = 0;
+      let isDeleting = false;
+      const speed = 120;
+      const deleteSpeed = 100;
+      const delayAfterFinish = 150;
+
+      function typeWriter() {
+        const title = document.getElementById("typewriter");
+        if (!isDeleting) {
+          if (index < text.length) {
+            title.innerHTML += text.charAt(index);
+            index++;
+            setTimeout(typeWriter, speed);
+          } else {
+            isDeleting = true;
+            setTimeout(typeWriter, delayAfterFinish);
+          }
+        } else {
+          if (index > 1) {
+            title.innerHTML = text.substring(0, index - 1);
+            index--;
+            setTimeout(typeWriter, deleteSpeed);
+          } else {
+            isDeleting = false;
+            setTimeout(typeWriter, 500);
+          }
+        }
+      }
+
+      window.onload = typeWriter;
+    </script>
+  </body>
+</html>
